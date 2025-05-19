@@ -1,1 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Giftomo 購買表單</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: auto;
+      padding: 2rem;
+    }
+    label {
+      display: block;
+      margin: 0.5rem 0;
+    }
+    .total {
+      font-weight: bold;
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <h2>🛒 Giftomo Apple Gift Card 購買</h2>
 
+  <form action="https://formspree.io/f/your-form-id" method="POST">
+    <label>
+      姓名：<br />
+      <input type="text" name="name" required />
+    </label>
+
+    <label>
+      聯絡方式：
+      <select name="contact_method" id="contactMethod" onchange="updateContactLabel()">
+        <option value="WhatsApp">WhatsApp</option>
+        <option value="Line">Line</option>
+        <option value="WeChat">WeChat</option>
+        <option value="Signal">Signal</option>
+      </select>
+    </label>
+
+    <label id="contactLabel">
+      WhatsApp（含區號）：<br />
+      <input type="text" name="contact" required />
+    </label>
+
+    <hr />
+    <h3>選擇產品：</h3>
+    <label>
+      $2 USD（MOP 18） × <input type="number" name="usd2" min="0" value="0" onchange="updateTotal()" />
+    </label>
+    <label>
+      $5 USD（MOP 42） × <input type="number" name="usd5" min="0" value="0" onchange="updateTotal()" />
+    </label>
+    <label>
+      $10 USD（MOP 85） × <input type="number" name="usd10" min="0" value="0" onchange="updateTotal()" />
+    </label>
+
+    <p class="total">總金額：MOP <span id="totalPrice">0</span></p>
+
+    <button type="submit">提交訂單</button>
+  </form>
+
+  <script>
+    function updateTotal() {
+      const usd2 = parseInt(document.querySelector('input[name="usd2"]').value) || 0;
+      const usd5 = parseInt(document.querySelector('input[name="usd5"]').value) || 0;
+      const usd10 = parseInt(document.querySelector('input[name="usd10"]').value) || 0;
+      const total = usd2 * 18 + usd5 * 42 + usd10 * 85;
+      document.getElementById("totalPrice").textContent = total;
+    }
+
+    function updateContactLabel() {
+      const method = document.getElementById("contactMethod").value;
+      document.getElementById("contactLabel").innerHTML =
+        `${method}（含區號）：<br /><input type="text" name="contact" required />`;
+    }
+  </script>
+</body>
+</html>
