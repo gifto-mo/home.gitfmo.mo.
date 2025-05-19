@@ -5,62 +5,121 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Giftomo 購買表單</title>
   <style>
+    :root {
+      --color-dark: #484043;
+      --color-warm-gray: #7C655C;
+      --color-blue-gray: #6A8E9C;
+      --color-cream: #E8D9C4;
+    }
+    * { box-sizing: border-box; }
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--color-cream);
+      color: var(--color-dark);
+      margin: 0;
+      padding: 0;
+    }
+    .container {
       max-width: 600px;
-      margin: auto;
+      background: white;
+      margin: 2rem auto;
       padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      border: 1px solid var(--color-warm-gray);
+    }
+    h2 {
+      color: var(--color-dark);
+      text-align: center;
+      margin-bottom: 1.5rem;
     }
     label {
       display: block;
-      margin: 0.5rem 0;
+      margin: 0.8rem 0 0.4rem;
+      font-weight: 500;
+    }
+    input, select {
+      width: 100%;
+      padding: 0.6rem;
+      border-radius: 6px;
+      border: 1px solid var(--color-blue-gray);
+      background-color: #fff;
+      margin-bottom: 0.8rem;
+      font-size: 1rem;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid var(--color-warm-gray);
+      margin: 2rem 0;
+    }
+    button {
+      background-color: var(--color-blue-gray);
+      color: #fff;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      margin-top: 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: var(--color-warm-gray);
     }
     .total {
       font-weight: bold;
-      margin-top: 1rem;
+      font-size: 1.2rem;
+      color: var(--color-dark);
+      margin-top: 1.5rem;
     }
   </style>
 </head>
 <body>
-  <h2>🛒 Giftomo Apple Gift Card 購買</h2>
+  <div class="container">
+    <h2>🎁 Giftomo Apple Gift Card 購買</h2>
 
-  <form action="https://formspree.io/f/your-form-id" method="POST">
-    <label>
-      姓名：<br />
-      <input type="text" name="name" required />
-    </label>
+    <form action="https://formsubmit.co/jaydenyip78@gmail.com" method="POST">
+      <input type="hidden" name="_subject" value="🛍 Giftomo 新訂單！">
+      <input type="hidden" name="_next" value="https://yourdomain.com/thankyou.html">
+      <input type="hidden" name="_captcha" value="false">
 
-    <label>
-      聯絡方式：
-      <select name="contact_method" id="contactMethod" onchange="updateContactLabel()">
-        <option value="WhatsApp">WhatsApp</option>
-        <option value="Line">Line</option>
-        <option value="WeChat">WeChat</option>
-        <option value="Signal">Signal</option>
-      </select>
-    </label>
+      <label>
+        姓名：
+        <input type="text" name="name" required />
+      </label>
 
-    <label id="contactLabel">
-      WhatsApp（含區號）：<br />
-      <input type="text" name="contact" required />
-    </label>
+      <label>
+        聯絡方式：
+        <select name="contact_method" id="contactMethod" onchange="updateContactLabel()">
+          <option value="WhatsApp">WhatsApp</option>
+          <option value="Line">Line</option>
+          <option value="WeChat">WeChat</option>
+          <option value="Signal">Signal</option>
+        </select>
+      </label>
 
-    <hr />
-    <h3>選擇產品：</h3>
-    <label>
-      $2 USD（MOP 18） × <input type="number" name="usd2" min="0" value="0" onchange="updateTotal()" />
-    </label>
-    <label>
-      $5 USD（MOP 42） × <input type="number" name="usd5" min="0" value="0" onchange="updateTotal()" />
-    </label>
-    <label>
-      $10 USD（MOP 85） × <input type="number" name="usd10" min="0" value="0" onchange="updateTotal()" />
-    </label>
+      <label id="contactLabel">
+        WhatsApp（含區號）：
+        <input type="text" name="contact" required />
+      </label>
 
-    <p class="total">總金額：MOP <span id="totalPrice">0</span></p>
+      <hr />
+      <h3>選擇產品：</h3>
+      <label>
+        $2 USD（MOP 18） × <input type="number" name="usd2" min="0" value="0" onchange="updateTotal()" />
+      </label>
+      <label>
+        $5 USD（MOP 42） × <input type="number" name="usd5" min="0" value="0" onchange="updateTotal()" />
+      </label>
+      <label>
+        $10 USD（MOP 85） × <input type="number" name="usd10" min="0" value="0" onchange="updateTotal()" />
+      </label>
 
-    <button type="submit">提交訂單</button>
-  </form>
+      <p class="total">總金額：MOP <span id="totalPrice">0</span></p>
+
+      <button type="submit">提交訂單</button>
+    </form>
+  </div>
 
   <script>
     function updateTotal() {
@@ -74,7 +133,7 @@
     function updateContactLabel() {
       const method = document.getElementById("contactMethod").value;
       document.getElementById("contactLabel").innerHTML =
-        `${method}（含區號）：<br /><input type="text" name="contact" required />`;
+        `${method}（含區號）：<input type="text" name="contact" required />`;
     }
   </script>
 </body>
