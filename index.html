@@ -3,74 +3,147 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Giftomo 購買表單</title>
+  <title>Giftomo 線上購買系統</title>
   <style>
     :root {
-      --color-dark: #484043;
-      --color-warm-gray: #7C655C;
-      --color-blue-gray: #6A8E9C;
-      --color-cream: #E8D9C4;
+      --color-bg: #1e1e1e;
+      --color-panel: #2c2c2c;
+      --color-text: #f4f4f4;
+      --color-muted: #aaa;
+      --color-accent: #4db6ac;
+      --color-hover: #357f78;
+      --color-border: #444;
     }
+
     * { box-sizing: border-box; }
+
     body {
       font-family: 'Segoe UI', sans-serif;
-      background-color: var(--color-cream);
-      color: var(--color-dark);
+      background-color: var(--color-bg);
+      color: var(--color-text);
       margin: 0;
       padding: 0;
     }
+
     .container {
       max-width: 600px;
-      background: white;
       margin: 2rem auto;
       padding: 2rem;
+      background-color: var(--color-panel);
       border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-      border: 1px solid var(--color-warm-gray);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+      border: 1px solid var(--color-border);
     }
+
     h2 {
-      color: var(--color-dark);
       text-align: center;
       margin-bottom: 1.5rem;
+      font-weight: 600;
     }
+
     label {
       display: block;
-      margin: 0.8rem 0 0.4rem;
+      margin-top: 1rem;
       font-weight: 500;
     }
+
     input, select {
       width: 100%;
       padding: 0.6rem;
+      margin-top: 0.4rem;
       border-radius: 6px;
-      border: 1px solid var(--color-blue-gray);
-      background-color: #fff;
-      margin-bottom: 0.8rem;
+      border: 1px solid var(--color-border);
+      background-color: #111;
+      color: var(--color-text);
       font-size: 1rem;
     }
+
     hr {
       border: none;
-      border-top: 1px solid var(--color-warm-gray);
+      border-top: 1px solid var(--color-border);
       margin: 2rem 0;
     }
+
     button {
-      background-color: var(--color-blue-gray);
+      background-color: var(--color-accent);
       color: #fff;
       border: none;
       padding: 0.8rem 1.5rem;
-      margin-top: 1rem;
+      margin-top: 1.5rem;
       border-radius: 6px;
       cursor: pointer;
       font-size: 1rem;
       transition: background-color 0.3s;
+      width: 100%;
     }
+
     button:hover {
-      background-color: var(--color-warm-gray);
+      background-color: var(--color-hover);
     }
+
+    .product-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .product {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #1a1a1a;
+      padding: 1rem;
+      border-radius: 8px;
+      border: 1px solid var(--color-border);
+    }
+
+    .product .info {
+      flex: 1;
+    }
+
+    .product .info .price {
+      font-size: 0.9rem;
+      color: var(--color-muted);
+    }
+
+    .quantity-control {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .quantity-control button {
+      background-color: var(--color-accent);
+      color: white;
+      border: none;
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+
+    .quantity-control input {
+      width: 40px;
+      text-align: center;
+      background-color: #111;
+      color: white;
+      border: 1px solid var(--color-border);
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+
     .total {
       font-weight: bold;
       font-size: 1.2rem;
-      color: var(--color-dark);
       margin-top: 1.5rem;
+      text-align: right;
+    }
+
+    .sub-label {
+      font-size: 0.9rem;
+      color: var(--color-muted);
+      margin-top: 0.25rem;
     }
   </style>
 </head>
@@ -78,42 +151,68 @@
   <div class="container">
     <h2>🎁 Giftomo Apple Gift Card 購買</h2>
 
-    <form action="https://formsubmit.co/jaydenyip78@gmail.com" method="POST">
+    <form action="https://formspree.io/f/manoavdp" method="POST">
       <input type="hidden" name="_subject" value="🛍 Giftomo 新訂單！">
-      <input type="hidden" name="_next" value="https://yourdomain.com/thankyou.html">
       <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_next" value="https://yourdomain.com/thankyou.html">
 
-      <label>
-        姓名：
-        <input type="text" name="name" required />
-      </label>
+      <label for="nickname">暱稱</label>
+      <input type="text" name="nickname" id="nickname" required>
 
-      <label>
-        聯絡方式：
-        <select name="contact_method" id="contactMethod" onchange="updateContactLabel()">
-          <option value="WhatsApp">WhatsApp</option>
-          <option value="Line">Line</option>
-          <option value="WeChat">WeChat</option>
-          <option value="Signal">Signal</option>
-        </select>
-      </label>
+      <label for="contactMethod">聯絡方式</label>
+      <select name="contact_method" id="contactMethod" onchange="updateContactInput()">
+        <option value="WhatsApp">WhatsApp</option>
+        <option value="Line">Line</option>
+        <option value="WeChat">WeChat</option>
+        <option value="Signal">Signal</option>
+      </select>
 
-      <label id="contactLabel">
-        WhatsApp（含區號）：
-        <input type="text" name="contact" required />
-      </label>
+      <div id="contactInputArea">
+        <label id="contactLabel">輸入電話號碼 / 平台 ID</label>
+        <input type="text" name="contact_detail" required>
+        <div class="sub-label">請輸入區號（如 WhatsApp）或平台帳號（如 Line ID）</div>
+      </div>
 
       <hr />
-      <h3>選擇產品：</h3>
-      <label>
-        $2 USD（MOP 18） × <input type="number" name="usd2" min="0" value="0" onchange="updateTotal()" />
-      </label>
-      <label>
-        $5 USD（MOP 42） × <input type="number" name="usd5" min="0" value="0" onchange="updateTotal()" />
-      </label>
-      <label>
-        $10 USD（MOP 85） × <input type="number" name="usd10" min="0" value="0" onchange="updateTotal()" />
-      </label>
+
+      <h3 style="text-align: left;">選擇產品：</h3>
+      <div class="product-list">
+        <div class="product">
+          <div class="info">
+            <strong>$2 USD</strong>
+            <div class="price">MOP 18</div>
+          </div>
+          <div class="quantity-control">
+            <button type="button" onclick="adjustQuantity('usd2', -1)">−</button>
+            <input type="number" name="usd2" id="usd2" value="0" min="0" readonly>
+            <button type="button" onclick="adjustQuantity('usd2', 1)">＋</button>
+          </div>
+        </div>
+
+        <div class="product">
+          <div class="info">
+            <strong>$5 USD</strong>
+            <div class="price">MOP 42</div>
+          </div>
+          <div class="quantity-control">
+            <button type="button" onclick="adjustQuantity('usd5', -1)">−</button>
+            <input type="number" name="usd5" id="usd5" value="0" min="0" readonly>
+            <button type="button" onclick="adjustQuantity('usd5', 1)">＋</button>
+          </div>
+        </div>
+
+        <div class="product">
+          <div class="info">
+            <strong>$10 USD</strong>
+            <div class="price">MOP 85</div>
+          </div>
+          <div class="quantity-control">
+            <button type="button" onclick="adjustQuantity('usd10', -1)">−</button>
+            <input type="number" name="usd10" id="usd10" value="0" min="0" readonly>
+            <button type="button" onclick="adjustQuantity('usd10', 1)">＋</button>
+          </div>
+        </div>
+      </div>
 
       <p class="total">總金額：MOP <span id="totalPrice">0</span></p>
 
@@ -122,18 +221,28 @@
   </div>
 
   <script>
-    function updateTotal() {
-      const usd2 = parseInt(document.querySelector('input[name="usd2"]').value) || 0;
-      const usd5 = parseInt(document.querySelector('input[name="usd5"]').value) || 0;
-      const usd10 = parseInt(document.querySelector('input[name="usd10"]').value) || 0;
-      const total = usd2 * 18 + usd5 * 42 + usd10 * 85;
-      document.getElementById("totalPrice").textContent = total;
+    function adjustQuantity(id, change) {
+      const input = document.getElementById(id);
+      let value = parseInt(input.value) || 0;
+      value = Math.max(0, value + change);
+      input.value = value;
+      updateTotal();
     }
 
-    function updateContactLabel() {
+    function updateTotal() {
+      const usd2 = parseInt(document.getElementById('usd2').value) || 0;
+      const usd5 = parseInt(document.getElementById('usd5').value) || 0;
+      const usd10 = parseInt(document.getElementById('usd10').value) || 0;
+      const total = usd2 * 18 + usd5 * 42 + usd10 * 85;
+      document.getElementById('totalPrice').textContent = total;
+    }
+
+    function updateContactInput() {
       const method = document.getElementById("contactMethod").value;
-      document.getElementById("contactLabel").innerHTML =
-        `${method}（含區號）：<input type="text" name="contact" required />`;
+      const label = document.getElementById("contactLabel");
+      const input = document.querySelector('input[name="contact_detail"]');
+      label.textContent = method + '（電話或 ID）';
+      input.placeholder = "請輸入您的 " + method + " 聯絡方式";
     }
   </script>
 </body>
