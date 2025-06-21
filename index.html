@@ -225,14 +225,14 @@
 <body>
   <div class="container">
     <h2>Giftomo 線上購買系統</h2>
-    <form action="https://formsubmit.co/0971c529627183d9a09507745e8c2ce2" method="POST" />
+    <form action="https://formsubmit.co/0971c529627183d9a09507745e8c2ce2" method="POST">
       <input type="hidden" name="_subject" value="Giftomo 新訂單！">
       <input type="hidden" name="_captcha" value="false">
-      <input type="hidden" name="_next" value="https://yourdomain.com/thankyou.html">
+      <input type="hidden" name="_next" value="https://gifto-mo.github.io/finish.gitfmo.mo./">
 
       <label for="region">選擇區域</label>
       <select name="region" id="region" onchange="updateProductList()">
-        <option value="港區" selected>港區</option> <!-- Set default to 港區 -->
+        <option value="港區" selected>港區</option>
         <option value="美區">美區</option>
         <option value="日區">日區</option>
         <option value="國區">國區</option>
@@ -306,116 +306,6 @@
     // Close the modal when the user clicks "I understand"
     function closeModal() {
       document.getElementById("modal").style.display = "none";
-    }
-
-    // Data from the Excel sheet for different regions
-    const productData = {
-      "美區": [
-        { name: "USD 2", price: 18, currency: "MOP", available: true },
-        { name: "USD 3", price: 27, currency: "MOP", available: true },
-        { name: "USD 4", price: 35, currency: "MOP", available: true },
-        { name: "USD 5", price: 44, currency: "MOP", available: true },
-        { name: "USD 10", price: 85, currency: "MOP", available: true },
-        { name: "USD 15", price: 122, currency: "MOP", available: true },
-        { name: "USD 20", price: 160, currency: "MOP", available: true },
-        { name: "USD 25", price: 200, currency: "MOP", available: false },
-        { name: "USD 50", price: 385, currency: "MOP", available: false },
-        { name: "USD 100", price: 750, currency: "MOP", available: false },
-        { name: "USD 200", price: 1490, currency: "MOP", available: false },
-        { name: "USD 300", price: 2240, currency: "MOP", available: false },
-      ],
-      "港區": [
-        { name: "HKD 50", price: 58, currency: "MOP", available: true },
-        { name: "HKD 100", price: 112, currency: "MOP", available: true },
-        { name: "HKD 150", price: 164, currency: "MOP", available: true },
-        { name: "HKD 200", price: 215, currency: "MOP", available: true },
-        { name: "HKD 500", price: 526, currency: "MOP", available: false },
-        { name: "HKD 1000", price: 1035, currency: "MOP", available: false },
-      ],
-      "日區": [
-        { name: "JPY 160", price: 12, currency: "MOP", available: true },
-        { name: "JPY 500", price: 32, currency: "MOP", available: true },
-        { name: "JPY 1000", price: 60, currency: "MOP", available: true },
-        { name: "JPY 2000", price: 114, currency: "MOP", available: true },
-        { name: "JPY 3000", price: 170, currency: "MOP", available: true },
-        { name: "JPY 5000", price: 278, currency: "MOP", available: false },
-        { name: "JPY 10000", price: 545, currency: "MOP", available: false },
-      ],
-      "國區": [
-        { name: "CNY 10", price: 12, currency: "MOP", available: true },
-        { name: "CNY 20", price: 24, currency: "MOP", available: true },
-        { name: "CNY 30", price: 35, currency: "MOP", available: true },
-        { name: "CNY 50", price: 57, currency: "MOP", available: true },
-        { name: "CNY 100", price: 115, currency: "MOP", available: true },
-        { name: "CNY 200", price: 230, currency: "MOP", available: false },
-        { name: "CNY 500", price: 580, currency: "MOP", available: false },
-        { name: "CNY 1000", price: 1160, currency: "MOP", available: false },
-      ]
-    };
-
-    // Function to update product list based on the selected region
-    function updateProductList() {
-      const region = document.getElementById("region").value;
-      const products = productData[region];
-      const productListContainer = document.getElementById("productList");
-      const selectedProducts = [];
-
-      // Clear the current product list
-      productListContainer.innerHTML = "";
-
-      // Add new products
-      products.forEach((product, index) => {
-        const productElement = document.createElement("div");
-        productElement.classList.add("product");
-        if (!product.available) {
-          productElement.classList.add("out-of-stock");
-        }
-
-        productElement.innerHTML = `
-          <div class="info">
-            <strong>${product.name}</strong>
-            <div class="price">${product.price} ${product.currency}</div>
-          </div>
-          <div class="quantity-control">
-            ${product.available ? `
-              <button type="button" onclick="adjustQuantity('product${index}', -1)">−</button>
-              <input type="number" name="product${index}" id="product${index}" value="0" min="0">
-              <button type="button" onclick="adjustQuantity('product${index}', 1)">＋</button>
-            ` : `<span>缺貨</span>`}
-          </div>
-        `;
-
-        productListContainer.appendChild(productElement);
-        selectedProducts.push(product.name);
-      });
-
-      // Update hidden field with selected product names
-      document.getElementById("selected_products").value = selectedProducts.join(", ");
-    }
-
-    // Function to adjust product quantity
-    function adjustQuantity(id, change) {
-      const input = document.getElementById(id);
-      let value = parseInt(input.value) || 0;
-      value = Math.max(0, value + change);
-      input.value = value;
-      updateTotal();
-    }
-
-    // Function to update the total price
-    function updateTotal() {
-      const region = document.getElementById("region").value;
-      const products = productData[region];
-      let total = 0;
-
-      products.forEach((product, index) => {
-        if (product.available) {
-          const quantity = parseInt(document.getElementById(`product${index}`).value) || 0;
-          total += quantity * product.price;
-        }
-      });
-
-      document.getElementById("totalPrice").textContent = total;
     }
   </script>
 </body>
